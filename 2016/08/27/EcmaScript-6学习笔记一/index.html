@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>EcmaScript 6学习笔记一 · zangxd</title><meta name="description" content="EcmaScript 6学习笔记一 - zangxd"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">EcmaScript 6学习笔记一</h1><div class="post-info">2016年8月27日</div><div class="post-content"><h2 id="作用域不同"><a href="#作用域不同" class="headerlink" title="作用域不同"></a>作用域不同</h2><p>ES6中，let和const实际上为JavaScript新增了<code>块级作用域</code>，函数本身的作用域，在其所在的块级作用域之内。</p>
+<ol>
+<li><p>let和const的用法</p>
+<p> <strong>相同点：</strong></p>
+<ul>
+<li><p>用来声明变量。</p>
+</li>
+<li><p>声明的变量只在它所在的代码块有效。</p>
+</li>
+<li><p>不像var那样，会发生“变量提升”现象，只要块级作用域内存在let或const命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。</p>
+</li>
+<li><p>不允许在相同作用域内，重复声明同一个变量。</p>
+<p><strong>不同点：</strong></p>
+</li>
+<li>const也用来声明变量，但是声明的是常量。一旦声明，常量的值就不能改变。let声明的变量可以改变。</li>
+</ul>
+</li>
+<li><p>全局对象</p>
+<ul>
+<li>ES6规定，var命令和function命令声明的全局变量，属于全局对象的属性；let命令、const命令、class命令声明的全局变量，不属于全局对象的属性，无法通过window/global获取。</li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+<h2 id="变量的解构赋值"><a href="#变量的解构赋值" class="headerlink" title="变量的解构赋值"></a>变量的解构赋值</h2><blockquote>
+<p>定义：ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var [a,b,c] = [1,2,3];</div><div class="line">相当于：</div><div class="line">var a = 1;</div><div class="line">var b = 2;</div><div class="line">var c = 3;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>解构只能用于数组或对象，其他原始类型的值都可以转为相应的对象。</p>
+</li>
+<li><p>解构赋值允许指定默认值。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[x, y=&apos;b&apos;] = [&apos;a&apos;] // x=&apos;a&apos;, y=&apos;b&apos;</div></pre></td></tr></table></figure>
+</li>
+<li><p>对象解构可以与函数参数的默认值一起使用。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function move(&#123;x=0,y=0&#125; = &#123;&#125;)&#123;</div><div class="line">    return &#123;x,y&#125;;</div><div class="line">&#125;</div><div class="line">move(&#123;x:3,y:8&#125;) //[3,8]</div><div class="line">move(&#123;&#125;); //[0,0]</div></pre></td></tr></table></figure>
+</li>
+<li><p>用途：</p>
+<ul>
+<li><p>交换变量的值</p>
+</li>
+<li><p>从函数返回多个值</p>
+</li>
+<li><p>函数参数的定义</p>
+</li>
+<li><p>提取JSON数据</p>
+</li>
+<li><p>函数参数的默认值</p>
+</li>
+<li><p>遍历Map结构</p>
+</li>
+<li><p>输入模块的指定方法</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="字符串的扩展"><a href="#字符串的扩展" class="headerlink" title="字符串的扩展"></a>字符串的扩展</h2><ol>
+<li><p>新增加<code>codePointAt()</code>、<code>String.fromCodePoint()</code>、<code>at()</code>处理需要4个字节储存的字符（Unicode码点大于0xFFFF的字符）。</p>
+</li>
+<li><p>ES6对正则表达式添加了<code>u</code>修饰符，用来正确处理大于<code>\uFFFF</code>的Unicode字符；</p>
+<ul>
+<li><p>点<code>.</code>字符在正则表达式中，对于码点大于0xFFFF的Unicode字符，点字符不能识别，必须加上u修饰符。</p>
+</li>
+<li><p>Unicode字符表示法：ES6新增了使用大括号表示Unicode字符，这种表示法在正则表达式中必须加上<code>u</code>修饰符，才能识别。</p>
+</li>
+<li><p>使用<code>u</code>修饰符后，所有量词都会正确识别大于码点大于0xFFFF的Unicode字符。</p>
+</li>
+<li><p><code>u</code>修饰符也影响到预定义模式，能否正确识别码点大于0xFFFF的Unicode字符。</p>
+</li>
+<li><p><code>i</code>修饰符/[a-z]/i.test(‘\u212A’) // false /[a-z]/iu.test(‘\u212A’) // true 上面代码中，不加u修饰符，就无法识别非规范的K字符。</p>
+</li>
+</ul>
+</li>
+<li><p>ES6又提供了三种新方法，用来确定一个字符串是否包含在另一个字符串中。<br> <code>includes()</code>：返回布尔值，表示是否找到了参数字符串。<br> <code>startsWith()</code>：返回布尔值，表示参数字符串是否在源字符串的头部，即是否以指定字符串开头。<br> <code>endsWith()</code>：返回布尔值，表示参数字符串是否在源字符串的尾部，即是否以指定字符串结尾。</p>
+</li>
+<li><p>正则表达式的<code>y</code>修饰符：它的作用与<code>g</code>修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始，不同之处在于，<code>g</code>修饰符只确保剩余位置中存在匹配，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始。</p>
+</li>
+<li><p>模板字符串：用反引号(“`“)标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量。如果在模板字符串中嵌入变量，需要将变量名写在${}之中。</p>
+<blockquote>
+<p>注意：（1）如果在模板字符串中需要使用反引号，则前面要用反斜杠转义。 （2） 大括号内部可以进行运算，以及引用对象属性。 （3）模板字符串之中还能调用函数 （4） 如果模板字符串中的变量没有声明，将报错。</p>
+</blockquote>
+</li>
+<li><p><code>String.raw</code>方法，往往用来充当模板字符串的处理函数，返回字符串被转义前的原始格式。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String.raw(&#123; raw: &apos;test&apos; &#125;, 0, 1, 2);// &apos;t0e1s2t&apos;</div><div class="line">等同于String.raw(&#123; raw: [&apos;t&apos;,&apos;e&apos;,&apos;s&apos;,&apos;t&apos;] &#125;, 0, 1, 2);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="数值的扩展"><a href="#数值的扩展" class="headerlink" title="数值的扩展"></a>数值的扩展</h2><ol>
+<li><p>ES6提供了二进制和八进制数值的新的写法，分别用前缀<code>0b</code>和<code>0o</code>表示。</p>
+</li>
+<li><p>ES6在Number对象上，新提供了<code>Number.isFinite()</code>和<code>Number.isNaN()</code>两个方法，用来检查<code>Infinite</code>和<code>NaN</code>这两个特殊值。 它们与传统的全局方法<code>isFinite()</code>和<code>isNaN()</code>的区别在于，传统方法先调<code>用Number()</code>将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，非数值一律返回false。</p>
+</li>
+<li><p>ES6将全局方法<code>parseInt()</code>和<code>parseFloat()</code>，移植到Number对象上面，行为完全保持不变。</p>
+</li>
+<li><p><code>Number.isInteger()</code>用来判断一个值是否为整数。</p>
+</li>
+</ol>
+<h2 id="数组的扩展"><a href="#数组的扩展" class="headerlink" title="数组的扩展"></a>数组的扩展</h2><ol>
+<li><p><code>Array.from()</code>用于将两类对象转为真正的数组：类似数组的对象（array-like object）和可遍历（iterable）的对象，其中包括ES6新增的Set和Map结构。</p>
+</li>
+<li><p><code>Array.of()</code>方法用于将一组值，转换为数组。</p>
+</li>
+<li><p>数组实例的<code>find()</code>用于找出第一个符合条件的数组元素。它的参数是一个回调函数，所有数组元素依次遍历该回调函数，直到找出第一个返回值为true的元素，然后返回该元素，否则返回undefined。</p>
+</li>
+<li><p>数组实例的<code>findIndex()</code>的用法与<code>find()</code>非常类似，返回第一个符合条件的数组元素的位置，如果所有元素都不符合条件，则返回-1。</p>
+</li>
+<li><p><code>fill()</code>使用给定值，填充一个数组。</p>
+</li>
+<li><p>ES6提供三个新的方法——<code>entries()</code>，<code>keys()</code>和<code>values()</code>——用于遍历数组。它们都返回一个遍历器，可以用for…of循环进行遍历，唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历。</p>
+</li>
+<li><p>ES7新增<code>includes()</code>方法返回一个布尔值，表示某个数组是否包含给定的值。</p>
+</li>
+<li><p>ES6提供简洁写法，允许直接通过现有数组生成新数组，这被称为数组推导。</p>
+</li>
+<li><p><code>Array.observe()</code>，<code>Array.unobserve()</code> 这两个方法用于监听（取消监听）数组的变化，指定回调函数。数组可监听的变化一共有四种：<code>add、update、delete、splice</code>（<em>数组的length属性发生变化</em>）。</p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/08/28/EcmaScript-6学习笔记二/" class="prev">PREV</a><a href="/2016/08/25/浏览器简析之了解浏览器/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>

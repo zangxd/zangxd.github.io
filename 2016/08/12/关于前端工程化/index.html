@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>关于前端工程化 · zangxd</title><meta name="description" content="关于前端工程化 - zangxd"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">关于前端工程化</h1><div class="post-info">2016年8月11日</div><div class="post-content"><h4 id="什么是前后端分离"><a href="#什么是前后端分离" class="headerlink" title="什么是前后端分离"></a>什么是前后端分离</h4><p>传统的开发是前端的代码部署在后端的代码里，然后耦合起来进行协同开发和发布，往往前端部分的修改都需要后端开发和测试人员的参与，开发效率没有达到最优化。前后端分离，由此而出。后端只处理接口数据，中端（NodeJS）处理接口、渲染数据，前端页面开发。前后端完全分离，并且便于单元测试、集成测试，中端在前后端分离中担任着中间人的角色，用它来处理路由、模板等事情。前端与后端再无直接关系，并且是两个不同的工程。</p>
+<h4 id="项目前端JS构建需注意哪些？"><a href="#项目前端JS构建需注意哪些？" class="headerlink" title="项目前端JS构建需注意哪些？"></a>项目前端JS构建需注意哪些？</h4><ol>
+<li>代码逻辑分层</li>
+<li>便于多人协作开发</li>
+<li>各部分代码模块化，可以按需加载</li>
+<li>保持全局变量的清洁</li>
+<li>可进行单元测试</li>
+</ol>
+<h4 id="构建工具及其基础库"><a href="#构建工具及其基础库" class="headerlink" title="构建工具及其基础库"></a>构建工具及其基础库</h4><ol>
+<li>构建工具<br>webpack：前端静态资源打包工具（会自动分析依赖，然后编译打包，可配置代码分割，提供按需加载的能力），可以把项目的各种js文、css文件等打包合并成一个或多个文件。<br>gulp: 自动化构建工具，用于优化前端工作流程，用于配置自动刷新页面，js，css压缩，编译less文件等。<br>bower：项目依赖的包管理器。</li>
+<li>基础库<br>angularJs OR other<a id="more"></a>
+<h4 id="没写完…"><a href="#没写完…" class="headerlink" title="没写完…."></a>没写完….</h4></li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/08/21/简单的组织JS代码/" class="prev">PREV</a><a href="/2016/08/05/Git常用命令/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>

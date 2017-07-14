@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>AngularJs基础知识 · zangxd</title><meta name="description" content="AngularJs基础知识 - zangxd"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">AngularJs基础知识</h1><div class="post-info">2016年8月31日</div><div class="post-content"><h2 id="AngularJs的背景"><a href="#AngularJs的背景" class="headerlink" title="AngularJs的背景"></a>AngularJs的背景</h2><p><a href="http://www.csdn.net/article/2013-10-08/2817118-AngularJS-Framework-Google" target="_blank" rel="external">专访AngularJS框架创始人Misko Hevery：让Web开发更便捷</a></p>
+<h2 id="4大核心特性"><a href="#4大核心特性" class="headerlink" title="4大核心特性"></a>4大核心特性</h2><ul>
+<li><p>MVC（职责清晰、代码模块化）</p>
+<p> <strong>为什么23中设计模式没有MVC</strong></p>
+<p> MVC的是为了把数据（Model）和视图（View）分离开来，然后用控制器（Controller）来粘合M和V之间的关系。<br> MVC是观察者模式(Observer), 策略模式(Strategy)和组合模式(Composite)三个设计模式的演变.</p>
+</li>
+<li><p>模块化</p>
+<p>Angular一切且是因模块开始的。</p>
+</li>
+<li><p>指令系统</p>
+<p>ng-app相当于java的main方法，即入口方法，一个应用中只能有一个ng-app</p>
+</li>
+<li><p>双向数据绑定</p>
+<p>视图和模型是对应的，两者变其一，两者皆变。</p>
+<a id="more"></a>
+<h2 id="前端开发基本环境"><a href="#前端开发基本环境" class="headerlink" title="前端开发基本环境"></a>前端开发基本环境</h2><ul>
+<li>代码编辑工具-sublime、atom、webstom</li>
+<li>断点调试工具-AngularJs Batarang</li>
+<li>版本管理工具-git</li>
+<li>代码合并混淆-gulp/grunt/webpack等</li>
+<li>依赖管理-npm、bower</li>
+<li><p>单元测试工具-karma（只是提供了测试用例的容器，实际用jsamin）</p>
+<p>Jasmine四个核心概念：分组、用例、期望、匹配</p>
+</li>
+<li>集成测试工具</li>
+</ul>
+</li>
+</ul>
+<h2 id="基本概念和用法"><a href="#基本概念和用法" class="headerlink" title="基本概念和用法"></a>基本概念和用法</h2><h3 id="1-MVC-MVC只是手段，终极目的是模块化和复用"><a href="#1-MVC-MVC只是手段，终极目的是模块化和复用" class="headerlink" title="1. MVC-MVC只是手段，终极目的是模块化和复用"></a>1. MVC-MVC只是手段，终极目的是模块化和复用</h3><p>  <strong>为什么使用MVC？</strong></p>
+<ul>
+<li>代码规模越来越大，切分职责是大势所趋…</li>
+<li>将公共逻辑抽出，代码复用…</li>
+<li><p>模块划分，修改一个模块不会影响其它模块…方便维护。</p>
+<p><strong>前端MVC的困难</strong></p>
+</li>
+<li><p>操作DOM的代码必须等整个页面加载完成</p>
+</li>
+<li>js之间如果出现相互依赖，程序员必须自己手动解决</li>
+<li><p>js的原型集成给前端编程带来了很多困难</p>
+<p><strong>Angular 中的控制器的使用注意ng-controller</strong></p>
+</li>
+<li><p>通用部分的代码应该抽成service来使用。</p>
+</li>
+<li>不要去试图复用controller，一个控制器一般只负责一小块试图。</li>
+<li>不要在controller中操作Dom，这不是控制器的职责。</li>
+<li>不要在controller中做数据格式化，ng有很好的表单空间</li>
+<li>不要在controller中做数据过滤，ng有$filter服务</li>
+<li><p>controller中不要相互调用,应该通过scope的事件去操作。</p>
+<p><strong>Angular Model ng-model</strong></p>
+</li>
+<li><p>Angular加载完成后会启动，首先会去查找ng-app的指令，它会认为ng-app内部的所有内容都归Angular所管，这时会去找子层标签所有ng指令并进行编译，这时ng-model生成数据模型并挂到$rootScope的根作用域。</p>
+<p><strong>Angular View–通过angular的directive去实现视图</strong></p>
+<blockquote>
+<p><strong>AngularJs的MVC都是借助于$scope实现的！！</strong><br><strong>Angular作用域是有层次结构的，类似Js的原型继承，向上查找</strong></p>
+</blockquote>
+<p><strong>Angular $scope</strong></p>
+</li>
+<li><p>$scope是一个普通的POJO。</p>
+</li>
+<li>$scope提供了一些工具方法$watch()/$apply()。</li>
+<li>$scope是表达式的执行环境（作用域）。</li>
+<li>$scope是一个树形结构，与Dom标签平行。</li>
+<li>子$scope对象会继承父$scope 的属性和方法</li>
+<li>每一个Angular应用都会有一个根$scope(一般位于ng-app上)</li>
+<li>$scope 可以传播事件，类似Dom事件，可以向上和向下传播。</li>
+<li>$scope 不仅是Mvc的基础，也是双向数据绑定的基础。</li>
+<li>angular创建会首先创建rootScope的。</li>
+<li><p>可以通过angular.element($0).scope()进行调试</p>
+<p><strong>Angular $scope大概的生命周期</strong></p>
+<ol>
+<li>创建</li>
+<li>注册监控</li>
+<li>监测模型变化</li>
+<li>脏值监测</li>
+<li>销毁</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-路由、模块、依赖注入"><a href="#2-路由、模块、依赖注入" class="headerlink" title="2. 路由、模块、依赖注入"></a>2. 路由、模块、依赖注入</h3><p>  <strong>使用ngRouter进行视图间的路由切换</strong><br>  本质上来说路由就是通过地址栏的地址不同，通过控制器去给我们展现不同的视图。举个简单的例子控制器是（电视机遥控器），数据模型（机顶盒），视图（电视机）。通过遥控器去调节应该看什么节目，即通过控制器去决定视图的显示。</p>
+<p>  <strong>Angular 官方推荐的模块切分方式</strong><br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|--app</div><div class="line">    |--controllers</div><div class="line">    |--directices</div><div class="line">    |--services</div><div class="line">    |--routes</div><div class="line">    |--filters</div></pre></td></tr></table></figure></p>
+<ul>
+<li>任何一个ng应用都是由控制器、指令、服务、路由、过滤器等有限模块类型构成的。</li>
+<li>控制器、指令、服务、路由、过滤器分别放在一个模块里面（可借助gulp等工具合并）。</li>
+<li>用一个总的app模块作为入口点，它依赖所有模块。</li>
+<li><p>Angular一切都是从模块开始的。</p>
+<p><strong>Angular依赖注入</strong></p>
+<ul>
+<li><p>ng开头的是Angular自身提供的，用到时需要单独引用相应的js。</p>
+</li>
+<li><p>ng没有实现异步加载机制。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-双向数据绑定"><a href="#1-双向数据绑定" class="headerlink" title="1. 双向数据绑定"></a>1. 双向数据绑定</h4><p>  <strong>双括号和ng-bind的应用场景</strong></p>
+<p>  如果网速不好，或者资源加载较慢，用户可能会看到取值表达式，此时可用ng-bind去取值。angular本身的库在加载完了后，整个页面一般都归angular来管了，此时用取值表达式就不会有问题。因此index页面有数据绑定用ng-bind，后续的通过模板等加载的页面则用取值表达式。</p>
+<p>  <strong>视图和值交互的场景–From表单及其ng-show、ng-hide、ng-class的使用</strong></p>
+<h4 id="2-路由"><a href="#2-路由" class="headerlink" title="2. 路由"></a>2. 路由</h4><p>  <strong>为什么会需要前端路由</strong></p>
+<ul>
+<li>Ajax的请求不会留下History记录，网络型应用没有历史记录，则没法将连接保存为书签使用。</li>
+<li>用户无法分享此连接</li>
+<li><p>对搜索引擎优化支持不友好</p>
+<p><strong>$routerProvider</strong></p>
+</li>
+<li><p>AngularJs自身提供的路由机制。</p>
+</li>
+<li>Angular1.2后组件模块化，需引入angular-router.js使用。</li>
+<li><p><strong>$routerProvider没有办法进行深层次嵌套路由</strong></p>
+<p><strong>ui-router第三方路由插件的使用，详见/page/route/route模块</strong></p>
+<p><strong>前端路由的基本原理</strong></p>
+</li>
+<li><p>哈希#（对老的锚点的封装）</p>
+</li>
+<li>Html5中的新的history API，通过js去修改地址栏地址，会留下历史记录同时页面不会跳转。</li>
+<li>路由的核心是给应用定义“状态”。</li>
+<li>使用路由机制会影响到整体编码方式（需预先定义好状态）。</li>
+<li>考虑兼容性问题和“优雅降级”–新的浏览器会使用html5的方式，老的浏览器会使用哈希的方式。</li>
+</ul>
+<h4 id="3-指令"><a href="#3-指令" class="headerlink" title="3. 指令"></a>3. 指令</h4><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var myModule = angular.module(&apos;MyModule&apos;,[]);</div><div class="line">myModul.directive(&apos;hello&apos;, () =&gt;&#123;</div><div class="line">    return &#123;</div><div class="line">      restrict: &apos;AEMC&apos;,</div><div class="line">      template: &apos;&lt;div&gt;Hi Angular&lt;/div&gt;&apos;,</div><div class="line">      replace: true</div><div class="line">    &#125;</div><div class="line">  &#125; );</div></pre></td></tr></table></figure>
+</code></pre><p>  <strong>restrict匹配模式</strong></p>
+<ul>
+<li>A：attribute</li>
+<li>E: element</li>
+<li>M: comment</li>
+<li>C: class</li>
+<li>推荐使用元素和属性的方式使用指令</li>
+<li>当需要创建自己的模板指令时，推荐元素名称方式</li>
+<li><p>当需要为已有的html标签增加功能时，使用属性的方式创建指令</p>
+<p><strong>template直接写字符串的模板形式</strong></p>
+<p><strong>templateUrl引入页面的形式去配置模板</strong></p>
+<p><strong>templateCache缓存模板</strong></p>
+</li>
+<li><p>配合angular的run方法（当注射器加载完毕后，此方法只执行一次）</p>
+<p><strong>replace和transclude</strong></p>
+</li>
+<li><p>replace是全部替换</p>
+</li>
+<li><p>transclude让指令之间嵌套使用。</p>
+<p><strong>指令执行的大概机制</strong></p>
+<p>加载阶段—-&gt; 编译阶段 —-&gt; 链接阶段</p>
+</li>
+<li><p>加载angular.js，找到ng-app，确定应用边界。</p>
+</li>
+<li>编译阶段：遍历Dom，找到所有指令。缓存到其内部缓存，根据指令代码中的template、replace、transclude转换dom结构，如果存在compile（自定义行为函数）函数则调用。</li>
+<li><p>链接阶段，每条指令的link（在此函数中操作dom）函数会被调用。link函数给dom元素绑定事件、作用域</p>
+<p><strong>指令的复用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-controller=&quot;directiveCtrl&quot;&gt;</div><div class="line">  &lt;loader howToLoad=&quot;loadData()&quot;&gt;滑动加载&lt;/loader&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">scope.$apply(attrs.howtoload);</div></pre></td></tr></table></figure>
+</li>
+<li><p>在不同的控制器中应用指令，通过指令的link函数结合在指令dom配置howToLoad去判断是哪个控制器调用，进而调用不同的处理函数。</p>
+<p><strong>指令内部的scope：{}</strong></p>
+<p>独立作用域，确定指令之间不会互相影响。</p>
+<p><strong>指令内部的controller</strong></p>
+<p>指令内部的controller，给指令提供一组外部调用的方法</p>
+</li>
+</ul>
+<p>  <strong>指令中逻辑应该写在什么地方？cotroller还是link</strong></p>
+<p>  如果想暴露一些方法供外部调用则写在controller中，如果只是处理指令的内部事务则写在link中。</p>
+<p>  <strong>指令中的require（require:”^superman”），表示指令依赖某个模块,可以实现指令间的交互</strong></p>
+<p>  <strong>指令内部的scope：{}</strong></p>
+<p>  独立作用域，确定指令之间不会互相影响。</p>
+<p>  <strong>scope的绑定策略，可以实现指令与controller之间的交互</strong></p>
+<ul>
+<li>@：绑定字符串的形式</li>
+<li>=：双向绑定</li>
+<li><p>&amp;：调用父层scope中的方法，注意传参的形式是obj（greet({name:userName})）</p>
+<p><strong>angular内置指令</strong></p>
+<p>比如form：</p>
+</li>
+<li>html原生form表单是不能嵌套的，而angular封装后的form是可以嵌套的。</li>
+<li>Angular为form扩展了自动校验防止重复提交等功能。</li>
+<li>Angular为input元素的type进行了扩展，扩展，一共提供了以下10中类型：text、number、url、email、radio、checkbox、hidden、button、submit</li>
+<li>Angular为表单内置了4中css样式：ng-valid、ng-invaild、ng-pristine、ng-dirty</li>
+<li><p>内置校验器：require、minlength、maxlength</p>
+<p><strong>angular自定义指令</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">directiveModule.directive(&apos;expander&apos;, () =&gt; &#123;</div><div class="line">	return &#123;</div><div class="line">		restrict : &apos;EA&apos;,</div><div class="line">		replace : true,</div><div class="line">		transclude : true,</div><div class="line">		scope : &#123;</div><div class="line">			title : &apos;=expanderTitle&apos;</div><div class="line">		&#125;,</div><div class="line">		template : &apos;&lt;div&gt;&apos;</div><div class="line">				 + &apos;&lt;div class=&quot;title&quot; ng-click=&quot;toggle()&quot;&gt;&#123;&#123;title&#125;&#125;&lt;/div&gt;&apos;</div><div class="line">				 + &apos;&lt;div class=&quot;body&quot; ng-show=&quot;showMe&quot; ng-transclude&gt;&lt;/div&gt;&apos;</div><div class="line">				 + &apos;&lt;/div&gt;&apos;,</div><div class="line">		link : function(scope, element, attrs) &#123;</div><div class="line">			scope.showMe = false;</div><div class="line">			scope.toggle = () =&gt; &#123;</div><div class="line">				scope.showMe = !scope.showMe;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><strong>angular引入第三方指令</strong></p>
+</li>
+<li><p>可参考<a href="https://github.com/angular-ui去下载实际用例测试使用。" target="_blank" rel="external">https://github.com/angular-ui去下载实际用例测试使用。</a></p>
+</li>
+</ul>
+<p>  <strong>angular指令的起源</strong></p>
+<ul>
+<li><p>Misko：AngularJS遵循的设计理念是——构建UI应该是声明式的。</p>
+<p>灵感来自于我之前在Adobe公司所从事的FLEX方面的工作。但是我还想要有大量的声明式UI，这也是AngularJS中标识符（directives）想法的灵感来源。</p>
+</li>
+</ul>
+<h4 id="4-Service-amp-Provider"><a href="#4-Service-amp-Provider" class="headerlink" title="4.Service&amp;Provider"></a>4.Service&amp;Provider</h4><p>  <strong>Service</strong></p>
+<p>  当多个controller方法中都重复的方法时，我们可将其抽出来，作为一个service。</p>
+<p>  <strong>$http Service</strong></p>
+<p>  <strong>自定义Service</strong></p>
+<ul>
+<li>自定义service命名不要以$符号开头。</li>
+<li><p>自定义service也可以作为模块注入使用，但是注入时需注意必须先注入angular自己的东西，再注入自己定义的service</p>
+<p><strong>Service特性</strong></p>
+</li>
+<li><p>Service都是<code>单例</code>的</p>
+</li>
+<li>Service由$injector负责实例化</li>
+<li>Service在整个应用的生命周期中存在，可以用来<code>共享数据</code></li>
+<li>在需要使用的地方利用<code>依赖注入</code>机制注入Service</li>
+<li>自定义的Service需要写在内置的Service的后面</li>
+<li><p>内置的Service的命名以$符号开头，自定义的Service应该避免</p>
+<p><strong>Service、Provider、Factory本质上都是Provider</strong></p>
+</li>
+<li><p>Provider模式（供应者模式）是<code>策略模式</code>和<code>抽象工厂模式</code>的混合体。</p>
+</li>
+<li><p>Service和Factory底层都是封装的Provider</p>
+<p><strong>$filter服务</strong></p>
+</li>
+<li><p>$filter是用来进行数据格式化的专用服务</p>
+</li>
+<li>Angular内置了9个filter：currency，date，json，limitTo，lowercase，number，orderBy，uppercase</li>
+<li>filter可以嵌套使用（用管道符号|分割）</li>
+<li>filter是可以传递参数的</li>
+<li>用户可以定义自己的filter</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/09/02/AngularJs核心原理简析一/" class="prev">PREV</a><a href="/2016/08/30/CSS之将footer固定在页面底部/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>

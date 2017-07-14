@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>EcmaScript 6学习笔记二 · zangxd</title><meta name="description" content="EcmaScript 6学习笔记二 - zangxd"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">EcmaScript 6学习笔记二</h1><div class="post-info">2016年8月28日</div><div class="post-content"><h2 id="Set数据结构"><a href="#Set数据结构" class="headerlink" title="Set数据结构"></a>Set数据结构</h2><p>ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
+<p><strong>Set结构有以下属性：</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Set.prototype.constructor</div><div class="line">// 构造函数，默认就是Set函数。</div><div class="line"></div><div class="line">Set.prototype.size</div><div class="line">//返回Set的成员总数</div></pre></td></tr></table></figure>
+<p><strong>Set数据结构有以下方法：</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">add(value)：添加某个值，返回Set结构本身。</div><div class="line"></div><div class="line">delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。</div><div class="line"></div><div class="line">has(value)：返回一个布尔值，表示该值是否为Set的成员。</div><div class="line"></div><div class="line">clear()：清除所有成员，没有返回值。</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<blockquote>
+<p>WeakSet结构与Set类似，也是不重复的值的集合。但是，它与Set有两个区别。 首先，WeakSet的成员只能是对象，而不能是其他类型的值。其次，WeakSet中的对象都是弱引用，即垃圾回收机制不考虑WeakSet对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于WeakSet之中。这个特点意味着，无法引用WeakSet的成员，因此WeakSet是不可遍历的。</p>
+</blockquote>
+<h2 id="Map数据结构"><a href="#Map数据结构" class="headerlink" title="Map数据结构"></a>Map数据结构</h2><p>ES6提供了map数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。也就是说，Object结构提供了“字符串—值”的对应，Map结构提供了“值—值”的对应。</p>
+<p><strong>Map数据结构有以下属性和方法：</strong></p>
+<p>1.size：返回成员总数。</p>
+<p>2.set(key, value)：设置key所对应的键值，然后返回整个Map结构。如果key已经有值，则键值会被更新，否则就新生成该键</p>
+<p>3.get(key)：读取key对应的键值，如果找不到key，返回undefined</p>
+<p>4.has(key)：返回一个布尔值，表示某个键是否在Map数据结构中</p>
+<p>5.delete(key)：删除某个键，返回true。如果删除失败，返回false</p>
+<p>6.clear()：清除所有成员，没有返回</p>
+<p><strong>Map原生提供三个遍历器：keys()，values()，entries()</strong></p>
+<blockquote>
+<p>WeakMap结构与Map结构基本类似，唯一的区别是它只接受对象作为键名（null除外），不接受原始类型的值作为键名，而且键名所指向的对象，不计入垃圾回收机制。</p>
+</blockquote>
+<h2 id="Iterator（遍历器）"><a href="#Iterator（遍历器）" class="headerlink" title="Iterator（遍历器）"></a>Iterator（遍历器）</h2><ol>
+<li><p>在ES6中具备<code>Iterator</code>接口：数组、某些类似数组的对象、Set和Map结构。</p>
+</li>
+<li><p>ES6规定，默认的<code>Iterator</code>接口部署在数据结构的<code>Symbol.iterator</code>属性。也就是说，调用<code>Symbol.iterator</code>方法，就会得到当前数据结构的默认遍历器。<code>Symbol.iterator</code>是一个表达式，返回Symbol对象的iterator属性，这是一个预定义好的、类型为Symbol的特殊值，所以要放在方括号内。</p>
+</li>
+<li><p>调用默认iterator接口的场合：</p>
+<ul>
+<li>解构赋值：对数组和Set结构进行解构赋值时，会默认调用iterator接口。</li>
+<li>扩展运算符</li>
+</ul>
+</li>
+<li><p>ES6中，一个数据结构只要部署了<code>Symbol.iterator</code>方法，就被视为具有iterator接口，就可以用<code>for...of</code>循环遍历它的成员。</p>
+</li>
+</ol>
+<h2 id="Generator-函数"><a href="#Generator-函数" class="headerlink" title="Generator 函数"></a>Generator 函数</h2><ol>
+<li><p>ES6引入<code>Generator</code>函数，作用就是可以完全控制函数的内部状态的变化，依次遍历这些状态。Generator是一个普通函数，但是有两个特征。一是，function命令与函数名之间有一个星号；二是，函数体内部使用<code>yield</code>语句，定义遍历器的每个成员，即不同的内部状态</p>
+</li>
+<li><p><code>next</code>方法的参数：next方法可以带一个参数，该参数就会被当作上一个yield语句的返回值。</p>
+</li>
+<li><p><code>for...of</code>循环可以自动遍历Generator函数，且此时不再需要调用next方法。</p>
+</li>
+<li><p><code>Generator</code>函数还有一个特点，它可以在函数体外抛出错误，然后在函数体内捕获。</p>
+</li>
+<li><p><code>yield*语句</code>：如果yield命令后面跟的是一个遍历器，需要在yield命令后面加上星号，表明它返回的是一个遍历器。</p>
+</li>
+</ol>
+<h2 id="Promise对象"><a href="#Promise对象" class="headerlink" title="Promise对象"></a>Promise对象</h2><ol>
+<li><p><code>Promise</code>对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。此外，Promise对象还提供了一整套完整的接口，使得可以更加容易地控制异步操作。</p>
+</li>
+<li><p><code>Promise.prototype.then</code>方法返回的是一个新的Promise对象，因此可以采用链式写法。</p>
+</li>
+<li><p><code>Promise.prototype.catch</code>方法是<code>Promise.prototype.then(null, rejection)</code>的别名，用于指定发生错误时的回调函数。</p>
+</li>
+<li><p><code>Promise.all()</code>、<code>Promise.race()</code>方法用于将多个Promise实例，包装成一个新的Promise实例。</p>
+</li>
+<li><p><code>Promise.resolve()</code>、<code>Promise.reject()</code>，将现有对象转为Promise对象</p>
+</li>
+<li><p>使用Generator函数管理流程，遇到异步操作的时候，通常返回一个Promise对象。</p>
+</li>
+</ol>
+<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><p>1.ES6引入了Class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。</p>
+<p>2.constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，该方法会被默认添加。</p>
+<p>3.生成实例对象的写法，与ES5完全一样，也是使用new命令。如果忘记加上new，像函数那样调用Class，将会报错。</p>
+<p>4.可以通过<strong>proto</strong>属性为Class添加方法。</p>
+<p>5.ES6的Class只是ES5的构造函数的一层包装，所以函数的许多特性都被Class继承，包括name属性。</p>
+<p>6.与函数一样，Class也可以使用表达式的形式定义。</p>
+<p>7.Class不存在变量提升。</p>
+<p>8.类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。</p>
+<p>9.Class的继承：Class之间可以通过extends关键字，实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。</p>
+<blockquote>
+<p>注意子类必须在constructor方法中调用super方法，否则新建实例时会报错。</p>
+</blockquote>
+<p>10.class的取值函数（getter）和存值函数（setter）：在Class内部可以使用get和set关键字，对某个属性设置存值函数和取值函数。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/08/28/EcmaScript-6学习笔记三/" class="prev">PREV</a><a href="/2016/08/27/EcmaScript-6学习笔记一/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>

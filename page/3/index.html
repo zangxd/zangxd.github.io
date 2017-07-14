@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>zangxd</title><meta name="description" content="zangxd | 前端 | 全栈 | zangxd's blog | css | javascript"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/08/05/Git常用命令/" class="post-title-link">Git常用命令</a></h2><div class="post-info">2016年8月4日</div><div class="post-content"><h3 id="一、-Git远程协作的主要命令"><a href="#一、-Git远程协作的主要命令" class="headerlink" title="一、 Git远程协作的主要命令"></a>一、 Git远程协作的主要命令</h3><ol>
+<li>git clone：用来获取远程仓库</li>
+<li>git fetch: 获取远程仓库的分支及其最新数据</li>
+<li>git pull：git fetch和git merge的组合</li>
+<li>git push: 将本地数据推送到远程仓库</li>
+</ol>
+<h4 id="查看历史"><a href="#查看历史" class="headerlink" title="查看历史"></a>查看历史</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git log --oneline --decorate --graph --all</div></pre></td></tr></table></figure>
+<h4 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git status</div></pre></td></tr></table></figure>
+<h4 id="将文件添加到本地仓库"><a href="#将文件添加到本地仓库" class="headerlink" title="将文件添加到本地仓库"></a>将文件添加到本地仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add dir/file</div><div class="line">git commit</div></pre></td></tr></table></figure>
+<h4 id="提交文件夹且名称带空格-用引号转义空格"><a href="#提交文件夹且名称带空格-用引号转义空格" class="headerlink" title="提交文件夹且名称带空格,用引号转义空格"></a>提交文件夹且名称带空格,用引号转义空格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add name&quot; &quot;</div></pre></td></tr></table></figure></div><a href="/2016/08/05/Git常用命令/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/07/31/Gulp-学习笔记/" class="post-title-link">Gulp 学习笔记</a></h2><div class="post-info">2016年7月30日</div><div class="post-content"><h4 id="关于Gulp"><a href="#关于Gulp" class="headerlink" title="关于Gulp"></a>关于Gulp</h4><p><a href="http://gulpjs.com/" target="_blank" rel="external">Gulp</a>是一款前端构建工具，利用 Gulp， 我们不仅可以对HTML、CSS（LESS|SASS）、JS（CoffeeScript）进行编译；还可以监听文件的变化，同时借助 livereloader 实时地刷新页面；甚至还可以对图片进行压缩优化。</p>
+<h4 id="安装Gulp"><a href="#安装Gulp" class="headerlink" title="安装Gulp"></a>安装Gulp</h4><ol>
+<li>安装全局 Gulp<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --global gulp</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g gulp</div></pre></td></tr></table></figure></p>
+<ol>
+<li>安装本地（作为开发依赖项）Gulp，即将Gulp安装到项目本地<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev gulp</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里，我们使用<code>--save-dev</code>来更新package.json文件，更新<code>devDependencies</code>值，以表明项目需要依赖<code>gulp</code>。<br><code>Dependencies</code>可以向其他参与项目的人指明项目在开发环境和生产环境中的node模块依懒关系，想要更加深入的了解它可以看看package.json文档。<br></div><a href="/2016/07/31/Gulp-学习笔记/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/07/29/Webpack学习笔记/" class="post-title-link">Webpack 学习笔记</a></h2><div class="post-info">2016年7月28日</div><div class="post-content"><h4 id="webpack是什么"><a href="#webpack是什么" class="headerlink" title="webpack是什么"></a><a href="http://webpack.github.io/" target="_blank" rel="external">webpack</a>是什么</h4><p>事实上它是一个打包工具，而不是像RequireJS或SeaJS这样的模块加载器，通过使用Webpack，能够像Node.js一样处理依赖关系，然后解析出模块之间的依赖，将代码打包。</p>
+<p>如今，越来越多的JavaScript代码被使用在页面上，我们添加很多的内容在浏览器里。如何去很好的组织这些代码，成为了一个必须要解决的难题。</p>
+<p>对于模块的组织，通常有如下几种方法：</p>
+<ol>
+<li>通过书写在不同文件中，使用script标签进行加载</li>
+<li>CommonJS进行加载（NodeJS就使用这种方式）</li>
+<li>AMD进行加载（require.js使用这种方式）</li>
+<li>ES6模块</li>
+<li>CMD进行加载（seajs使用这种方式）</div><a href="/2016/07/29/Webpack学习笔记/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/07/26/JavaScript常识/" class="post-title-link">JavaScript常识</a></h2><div class="post-info">2016年7月25日</div><div class="post-content"><h3 id="JS数据类型"><a href="#JS数据类型" class="headerlink" title="JS数据类型"></a>JS数据类型</h3><ul>
+<li>javascript有六种类型，其中有string,number,boolean,null,undefined五种基本类型和一种Object（Function、Array…）。</li>
+<li><p>javascript隐式转换</p>
+<ol>
+<li><p>number和string，其中string转换成number进行比较</p>
+</li>
+<li><p>number和boolean，boolean转换成数字同number比较。</p>
+</li>
+<li><p>基本类型和对象类型，会将对象类型转换成基本类型比较。</p>
+</li>
+<li><p>数字转字符串<code>0+&#39;&#39;</code>,字符串转数字<code>&#39;5&#39;-0</code>。</p>
+</li>
+</ol>
+</li>
+<li><p>js中当我们尝试将string 作为对象使用时，比如访问length属性，js会非常智能的转换为对应的包装对象。相当于new了一个string,当完成相关操作后这个临时对象会被销毁掉。</p>
+</li>
+<li><p>类型监测</p>
+<ol>
+<li><p>typeof运算符返回的是一个字符串，适合函数对象和基本类型的判断。但是有一个特殊点<code>typeof null===‘object’</code>，可通过严格<br>等于的方式去判断值是不是等于null。</p>
+</li>
+<li><p>instanceof判断对象类型，它是基于原型链判断的一个操作符。左操作树是一个对象，右操作树必须是一个函数对象或者函数构造器。原理是判断左边对象的原型链上是否有右边构造函数的prototype属性。需要注意不同window和不同的iframe间是不能使用instanceof的。</p>
+</li>
+<li><p>Object.prototype.toString.apply()可判断数组，函数，null（ie6/7/8返回[object Object]）和undifined。</p>
+</li>
+<li><p>任何一对象都有一个constructor属性，实际上是继承自原型。注意constructor容易被改写。</p>
+</li>
+<li><p>duck type：通过一些特征，比如判断是否有某方法去判断对象类型。</p></div><a href="/2016/07/26/JavaScript常识/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/07/24/三生石/" class="post-title-link">三生石</a></h2><div class="post-info">2016年7月23日</div><div class="post-content"></div><a href="/2016/07/24/三生石/" class="read-more">...more</a></article></li></ul></main><footer><div class="paginator"><a href="/page/2/" class="prev">PREV</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>

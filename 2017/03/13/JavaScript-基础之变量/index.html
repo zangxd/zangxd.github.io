@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>JavaScript 基础之变量 · zangxd</title><meta name="description" content="JavaScript 基础之变量 - zangxd"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">JavaScript 基础之变量</h1><div class="post-info">2017年3月12日</div><div class="post-content"><h2 id="JavaScript变量"><a href="#JavaScript变量" class="headerlink" title="JavaScript变量"></a>JavaScript变量</h2><p>js中的变量是松散类型，可以用来保存任何类型的数据。变量在第一次用到时就设置于内存中，便于后来在脚本中引用。使用变量之前先进行声明。可以使用 <code>var</code> <code>let</code> 关键字来进行变量声明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var count, amount, level; // 用单个var声明多个变量</div></pre></td></tr></table></figure>
+<h3 id="变量命名"><a href="#变量命名" class="headerlink" title="变量命名"></a>变量命名</h3><p>变量名包括全局变量，局部变量，类变量，函数参数等等。</p>
+<p>变量的命名可以以任意类型前缀+语义化的单词组成，尽量保持变量命名的可读性。例如用驼峰规则命名的变量：<code>sName</code> <code>nAge</code></p>
+<h4 id="前缀规范（根据项目具体需求及其个人编程习惯而定）："><a href="#前缀规范（根据项目具体需求及其个人编程习惯而定）：" class="headerlink" title="前缀规范（根据项目具体需求及其个人编程习惯而定）："></a>前缀规范（根据项目具体需求及其个人编程习惯而定）：</h4><ul>
+<li>s：表示字符串。例如：sName</li>
+<li>n：表示数字。例如：sAge</li>
+<li>b：表示逻辑（布尔类型）。例如：bChecked</li>
+<li>a：表示数组。例如：aList</li>
+<li>r：表示正则表达式。例如：rEmail</li>
+<li>f：表示函数。例如：fAdd</li>
+<li>o：表示其它（以上未涉及到的）。例如：oDate</li>
+<li>g：表示全局变量。例如：gToken</li>
+</ul>
+<blockquote>
+<p>JavaScript 是一种区分大小写的语言。创建变量（标识符）应该遵循以下几点：</p>
+</blockquote>
+<pre><code>a. 第一个字符必须是字母、数字、下划线或者美元符号开头。
+
+b. 变量在声明的时候不能同JavaScript保留子相同（比如var、function）。
+
+c. 如果变量声明了，但是没有对其复制，该变量的值默认为`undefined`。
+</code></pre><h3 id="变量之间的强制类型转换"><a href="#变量之间的强制类型转换" class="headerlink" title="变量之间的强制类型转换"></a>变量之间的强制类型转换</h3><p>在JavaScript中，JavaScript解释器会自动将数据类型之一强制转换为另一种数据类型，然后执行元素。例如：</p>
+<ul>
+<li>数字与字符串相加（将数字转换为字符串）</li>
+<li>布尔值与字符串相加（将布尔值转换为字符串）</li>
+<li>数字与布尔值相加（将布尔值转换为数字）</li>
+<li>parseInt（将字符串转换为整数）</li>
+<li>parseFloat（将字符串转换浮点数）</li>
+<li>字符串减去一个值会将字符串转换为数值（’123’ - 0）<a id="more"></a>
+<h3 id="变量的生命周期"><a href="#变量的生命周期" class="headerlink" title="变量的生命周期"></a>变量的生命周期</h3>当在函数内声明一个变量后，只能在该函数中访问该变量。当退出该函数后，JavaScript垃圾回收机制会销毁该变量。这种变量被成为本地变量（局部变量）。<br>如果在函数之外声明了一个变量，则此同级作用域都可访问该变量。</li>
+</ul>
+<h3 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h3><p><img src="http://note.youdao.com/yws/api/personal/file/WEB856e5d75a9e9d53e405b31c0e4505cb9?method=download&amp;shareKey=0094ce2511ea0a6ebfcda5145c57e135" alt="image"></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/03/14/JavaScript-基础之数据类型/" class="prev">PREV</a><a href="/2017/03/12/阻止js冒泡事件/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>浏览器简析之渲染机制 · zangxd</title><meta name="description" content="浏览器简析之渲染机制 - zangxd"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/nirvana.css"><link rel="search" type="application/opensearchdescription+xml" href="https://zangxd.com/atom.xml" title="zangxd"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">Home</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">Archive</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">About</a></li><li class="nav-list-item"><a href="https://github.com/zangxd" target="_blank" class="nav-list-link">GitHub</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">浏览器简析之渲染机制</h1><div class="post-info">2016年8月23日</div><div class="post-content"><blockquote>
+<p>本文参考学习<a href="http://delai.me/" target="_blank" rel="external">德来大师</a>的<a href="https://segmentfault.com/a/1190000004292479,且本文提到的浏览器均是指Chrome。" target="_blank" rel="external">https://segmentfault.com/a/1190000004292479,且本文提到的浏览器均是指Chrome。</a></p>
+</blockquote>
+<p><strong>几个概念</strong></p>
+<p>1、<code>DOM</code>：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</p>
+<p>2、<code>CSSOM</code>：CSS Object Model，浏览器将CSS代码解析成树形的数据结构。</p>
+<p>3、<code>DOM</code> 和 <code>CSSOM</code>都是以 Bytes → characters → tokens → nodes → object model. 这样的方式生成最终的数据。如下图所示：<br><a id="more"></a><br><img src="/img/brower_render1.png" alt="img"></p>
+<blockquote>
+<p>DOM 树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。</p>
+</blockquote>
+<p>4、<code>Render Tree</code>：<code>DOM</code> 和 <code>CSSOM</code> 合并后生成 <code>Render Tree</code>，如下图：<br><img src="/img/brower_render1.png" alt="img"></p>
+<p><code>Render Tree</code> 和<code>DOM</code>一样，以多叉树的形式保存了每个节点的css属性、节点本身属性、以及节点的孩子节点。</p>
+<blockquote>
+<p>注意：<code>display:none</code> 的节点不会被加入 <code>Render Tree</code>，而 <code>visibility: hidden</code> 则会，所以，如果某个节点最开始是不显示的，设为 display:none 是更优的。</p>
+</blockquote>
+<p><strong>浏览器的渲染过程</strong><br>1、<code>Create/Update DOM And request css/image/js</code>：浏览器请求到HTML代码后，在生成DOM的最开始阶段（应该是 Bytes → characters 后），并行发起css、图片、js的请求，无论他们是否在head里。</p>
+<blockquote>
+<p>注意：发起 js 文件的下载 request 并不需要 DOM 处理到那个 script 节点，比如：简单的正则匹配就能做到这一点，虽然实际上并不一定是通过正则：）。这是很多人在理解渲染机制的时候存在的误区。</p>
+</blockquote>
+<p>2、<code>Create/Update Render CSSOM</code>：CSS文件下载完成，开始构建CSSOM<br>3、<code>Create/Update Render Tree</code>：所有CSS文件下载完成，CSSOM构建结束后，和 DOM 一起生成 Render Tree。<br>4、<code>Layout</code>：有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为Layout，顾名思义就是计算出每个节点在屏幕中的位置。<br>5、<code>Painting</code>：Layout后，浏览器已经知道了哪些节点要显示（which nodes are visible）、每个节点的CSS属性是什么（their computed styles）、每个节点在屏幕中的位置是哪里（geometry）。就进入了最后一步：Painting，按照算出来的规则，通过显卡，把内容画到屏幕上。</p>
+<blockquote>
+<p>以上五个步骤前3个步骤之所有使用 “Create/Update” 是因为DOM、CSSOM、Render Tree都可能在第一次Painting后又被更新多次，比如JS修改了DOM或者CSS属性。<br>Layout 和 Painting 也会被重复执行，除了DOM、CSSOM更新的原因外，图片下载完成后也需要调用Layout 和 Painting来更新网页。</p>
+</blockquote>
+<p><strong>看 Timeline，一目了然</strong><br>我有赞PC首页的代码到本地，通过Node跑起来。Node作为Server端，对/js/jquery.js 做了延时2s返回的处理，并且把<script src="http://127.0.0.1:8080/js/jquery.js"></script> 放到导航栏的下面，结果是这样的：<br><img src="/img/brower_timeline1.png" alt="img"><br><img src="/img/brower_timeline2.jpeg" alt="img"><br><img src="/img/brower_timeline3.png" alt="img"><br><img src="/img/brower_timeline4.png" alt="img"></p>
+<p>从上面的Timeline我们可以看出：</p>
+<ul>
+<li>首屏时间和DomContentLoad事件没有必然的先后关系</li>
+<li>所有CSS尽早加载是减少首屏时间的最关键</li>
+<li>js的下载和执行会阻塞Dom树的构建（严谨地说是中断了Dom树的更新），所以script标签放在首屏范围内的HTML代码段里会截断首屏的内容。</li>
+<li>script标签放在body底部，做与不做async或者defer处理，都不会影响首屏时间，但影响DomContentLoad和load的时间，进而影响依赖他们的代码的执行的开始时间。</li>
+</ul>
+<p><strong>script标签的位置会影响首屏时间么？</strong></p>
+<p>答案是：不影响（如果这里里的首屏指的是页面从白板变成网页画面——也就是第一次Painting），但有可能截断首屏的内容，使其只显示上面一部分。</p>
+<blockquote>
+<p>为什么说是“有可能”呢？，如果该js下载地比css还快，或者script标签不在第一屏的html里，实际上是不影响的。明白这一影响边界非常重要，这样我们在考察页面性能瓶颈的时候就有的放矢了。举个例子：在网页的第二屏有一个通用模块，实际上我们是可以把它的js逻辑独立成一个文件，将模块的html和js标签放在一起做成独立的模板引进来的。</p>
+</blockquote>
+<p><strong>总结</strong></p>
+<ul>
+<li>如果script标签的位置不在首屏范围内，不影响首屏时间</li>
+<li>所有的script标签应该放在body底部是很有道理的</li>
+<li>但从性能最优的角度考虑，即使在body底部的script标签也会拖慢首屏出来的速度，因为浏览器在最一开始就会请求它对应的js文件，而这，占用了有限的TCP链接数、带宽甚至运行它所需要的CPU。这也是为什么script标签会有async或defer属性的原因之一。</li>
+</ul>
+<p>可是，在复杂的实际应用场景中，要贯彻这几条结论可能会遇到问题，比如：</p>
+<ul>
+<li>你的页面是分模块来写的，每一个模块都有自己的html、js甚至css，当把这些模块凑到一个页面中的时候就会出现js自然而然地出现在HTML中间部分。你很难把script标签都放到底部</li>
+<li>即使你把script标签都放到底部，但script标签的存在终究是拖慢了首屏时间、DomContendLoad和loaded的时间。如果只有一个script标签，我们可以加一个async，但多个async的script标签的结果会是js文件被乱序执行的，这显然不是我们想要的。</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/08/25/浏览器简析之了解浏览器/" class="prev">PREV</a><a href="/2016/08/21/Bower-笔记/" class="next">NEXT</a></div><div class="copyright"><p>© 2016 - 2017 <a href="https://zangxd.com">zangxd</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-nirvana</a>.</p></div></footer></div><script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></body></html>
